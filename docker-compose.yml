@@ -1,0 +1,14 @@
+version: '3.4'
+services:
+    tokengenerator_docker:
+        image: node:alpine
+        container_name: Quote-API
+        command: /bin/sh -c "cd /srv/app && npm install && node index.js"
+        ports:
+            - 1000:1000
+        working_dir: /srv/app
+        volumes:
+            - type: bind
+              source: ./
+              target: /srv/app
+        tty: true
