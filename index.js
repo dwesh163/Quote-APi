@@ -45,7 +45,7 @@ app.post('', async (req, res) => {
 		} catch (error) {
 			res.status(500).send('Erreur lors de la manipulation du fichier quote.json');
 		}
-	} else if (content.type === 'supprimer') {
+	} else if (content.type === 'delete') {
 		if (content.token !== deleteToken) {
 			res.status(401).send('Token incorrect. Autorisation refusée.');
 			return;
