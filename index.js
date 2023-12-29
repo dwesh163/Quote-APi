@@ -27,6 +27,21 @@ app.post('', async (req, res) => {
 		} catch (error) {
 			res.status(500).send('Erreur lors de la lecture du fichier quote.json');
 		}
+	} else if (content.type === 'random') {
+		try {
+			const fileContent = await fs.readFile('quote.json', 'utf-8');
+			const quotes = JSON.parse(fileContent);
+
+			if (quotes.length === 0) {
+				res.status(404).send('Aucune citation disponible.');
+			} else {
+				const randomIndex = Math.floor(Math.random() * quotes.length);
+				const randomQuote = quotes[randomIndex];
+				res.json(randomQuote);
+			}
+		} catch (error) {
+			res.status(500).send('Erreur lors de la manipulation du fichier quote.json');
+		}
 	} else {
 		try {
 			const fileContent = await fs.readFile('quote.json', 'utf-8');
