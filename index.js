@@ -5,9 +5,12 @@ const app = express();
 const port = 1000;
 
 app.use(express.json());
+app.use(cors());
 
-app.post('/', async (req, res) => {
+app.post('', async (req, res) => {
 	const content = req.body;
+
+	console.log(content);
 
 	try {
 		await fs.access('quote.json');
