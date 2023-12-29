@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs/promises');
+const { v4: uuidv4 } = require('uuid');
 
 const app = express();
 const port = 1000;
@@ -46,7 +47,9 @@ app.post('', async (req, res) => {
 		try {
 			const fileContent = await fs.readFile('quote.json', 'utf-8');
 			const quotes = JSON.parse(fileContent);
-			quotes.push(content);
+
+			const newQuote = { id: uuidv4(), ...content };
+			quotes.push(newQuote);
 
 			await fs.writeFile('quote.json', JSON.stringify(quotes, null, 2));
 
